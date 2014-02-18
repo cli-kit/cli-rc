@@ -53,7 +53,7 @@ var RunControl = function(options) {
 RunControl.prototype.getDefaultSearchPath = function() {
   var pth = [];
   // this library will be in node_modules/cli-rc so this should
-  // resolve to the package that depends upon this library
+  // resolve to the dependent package directory
   var pkg = path.normalize(path.join(__dirname, '..', '..'));
   var usr = fsutil.home();
   pth.push(pkg);
