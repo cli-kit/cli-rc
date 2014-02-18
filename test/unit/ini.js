@@ -12,6 +12,7 @@ describe('cli-util:', function() {
     var opts = {name: 'rc.ini', path: [paths.files], type: rc.INI};
     rc(opts, function loaded(err, rc) {
       expect(err).to.eql(null);
+      console.dir(rc);
       expect(rc).to.eql(expected);
       done();
     });
