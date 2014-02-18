@@ -114,4 +114,3 @@ module.exports = rc;
 module.exports.RunControl = RunControl;
 module.exports.JSON = JSON_TYPE;
 module.exports.INI = INI_TYPE;
-module.exports.types = types;

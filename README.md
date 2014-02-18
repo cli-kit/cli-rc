@@ -75,6 +75,17 @@ The expected format of rc files, either `ini` or `json`, default is `json`.
 
 ### Module
 
+#### ([options], [callback])
+
+Creates a `RunControl` instance.
+
+* `options`: The configuration options.
+* `callback`: A callback function.
+
+If `callback` is specified and is a `function` then it is passed to `RunControl.load()`.
+
+Returns the `RunControl` instance.
+
 #### INI
 
 String constant representing the `ini` format.
@@ -83,24 +94,9 @@ String constant representing the `ini` format.
 
 String constant representing the `json` format.
 
-#### rc([options], [callback])
-
-Creates a `RunControl` instance.
-
-* `options`: The configuration options.
-* `callback`: A callback function.
-
-If `callback` is specified and is a `function` then it is passed to `load()`.
-
-Returns the `RunControl` instance.
-
 #### RunControl
 
 Reference fo the `RunControl` class.
-
-#### types
-
-Array of supported rc file formats.
 
 ### RunControl
 
