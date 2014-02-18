@@ -30,6 +30,10 @@ decoders[INI_TYPE] = function(contents) {
  *  @param options.path Array of filesystem directories to search.
  *  @param options.lenient Boolean indicating that load should
  *  continue on error.
+ *  @param options.append Boolean indicating default search paths should
+ *  be appended to specified paths.
+ *  @param options.prepend Boolean indicating default search paths should
+ *  be prepended to specified paths.
  */
 var RunControl = function(options) {
   options = options || {};

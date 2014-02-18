@@ -75,6 +75,8 @@ The name of the rc file to load, default is:
 
 Array of directories to search for rc files, default is the package directory and the user's home directory.
 
+Note that no path entry for the user's home directory will be added by default if it could not be determined from environment variables.
+
 ### prepend
 
 A boolean that prepends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option.
