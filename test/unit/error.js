@@ -21,4 +21,14 @@ describe('cli-util:', function() {
       done();
     });
   });
+  it('should callback with error on EACCES', function(done) {
+    var opts = {name: 'eaccess.json', path: [paths.files]};
+    rc(opts, function loaded(err, rc) {
+      function fn() {
+        throw err;
+      }
+      expect(fn).throws(Error);
+      done();
+    });
+  });
 })

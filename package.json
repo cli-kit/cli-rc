@@ -35,7 +35,8 @@
   },
   "engine": [ "node >= 0.10.21" ],
   "scripts": {
-    "test": "istanbul cover _mocha -- -u bdd --recursive --reporter list -A test/unit/"
+    "permissions": "chmod -r test/files/eaccess.json",
+    "test": "npm run permissions; istanbul cover _mocha -- -u bdd --recursive --reporter list -A test/unit/"
   },
   "config" : {}
 }
