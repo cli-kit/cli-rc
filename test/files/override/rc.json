@@ -1,0 +1,9 @@
+{
+  "scope": "local",
+  "prefix": "/usr/local/lib/prg",
+  "paths": {
+    "default": {
+      "datadir": "/var/lib/db"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "name": "cli-rc",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Run control for command line interfaces",
   "author": "muji <noop@xpm.io>",
   "repository": {
