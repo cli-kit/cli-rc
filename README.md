@@ -124,6 +124,10 @@ The signature for `callback` is:
 function loaded(err, rc)
 ```
 
+The `rc` argument is an object that is the merged result of loading and parsing all rc files that exist and did not trigger an error.
+
+Errors are decorated with a `file` property to indicate the file that caused the error condition.
+
 The `err` argument will be an `Error` if:
 
 * There was an error parsing a file as JSON (`SyntaxError`).

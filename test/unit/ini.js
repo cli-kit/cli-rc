@@ -11,7 +11,7 @@ var expected = ini.parse(
 
 describe('cli-util:', function() {
   it('should load valid rc file (ini)', function(done) {
-    var opts = {name: 'rc.ini', path: [paths.files], type: rc.INI};
+    var opts = {name: paths.ini, path: [paths.files], type: rc.INI};
     rc(opts, function loaded(err, rc) {
       expect(err).to.eql(null);
       expect(rc).to.eql(expected);
@@ -20,7 +20,7 @@ describe('cli-util:', function() {
   });
   it('should override valid rc file (ini)', function(done) {
     var opts = {
-      name: 'rc.ini', path: [paths.files, paths.override], type: rc.INI};
+      name: paths.ini, path: [paths.files, paths.override], type: rc.INI};
     rc(opts, function loaded(err, rc) {
       expect(err).to.eql(null);
       override(rc, expected);

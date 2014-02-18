@@ -1,3 +1,4 @@
+var path = require('path');
 var expect = require('chai').expect;
 var rc = require('../..');
 var paths = require('../util/paths');
@@ -20,8 +21,10 @@ describe('cli-util:', function() {
     done();
   });
   it('should callback with error on invalid json', function(done) {
-    var opts = {name: 'invalid.json', path: [paths.files]};
+    var file = paths.invalid;
+    var opts = {name: file, path: [paths.files]};
     rc(opts, function loaded(err, rc) {
+      expect(err.file).to.eql(path.join(paths.files, file));
       function fn() {
         throw err;
       }
@@ -30,8 +33,10 @@ describe('cli-util:', function() {
     });
   });
   it('should callback with error on EACCES', function(done) {
-    var opts = {name: 'eaccess.json', path: [paths.files]};
+    var file = paths.eaccess;
+    var opts = {name: file, path: [paths.files]};
     rc(opts, function loaded(err, rc) {
+      expect(err.file).to.eql(path.join(paths.files, file));
       function fn() {
         throw err;
       }
