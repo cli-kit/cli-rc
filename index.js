@@ -50,7 +50,8 @@ RunControl.prototype.getDefaultSearchPath = function() {
   // resolve to the package that depends upon this library
   var pkg = path.normalize(path.join(__dirname, '..', '..'));
   var usr = fsutil.home();
-  pth.push(pkg, usr);
+  pth.push(pkg);
+  if(usr) pth.push(usr);
   return pth;
 }
 
@@ -60,6 +61,9 @@ RunControl.prototype.getDefaultSearchPath = function() {
  *  @api public
  */
 RunControl.prototype.load = function(callback) {
+  if(typeof callback !== 'function') {
+    throw new TypeError('Load callback must be a function');
+  }
   var files = this.path.slice(0), name = this.name;
   var rc = this.rc, type = this.type, scope = this;
   function decode(data) {

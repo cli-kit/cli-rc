@@ -11,6 +11,14 @@ describe('cli-util:', function() {
     expect(fn).throws(TypeError);
     done();
   });
+  it('should throw error on invalid callback', function(done) {
+    var loader = rc();
+    function fn() {
+      loader.load();
+    }
+    expect(fn).throws(TypeError);
+    done();
+  });
   it('should callback with error on invalid json', function(done) {
     var opts = {name: 'invalid.json', path: [paths.files]};
     rc(opts, function loaded(err, rc) {
