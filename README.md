@@ -75,7 +75,7 @@ The name of the rc file to load, default is:
 
 Array of directories to search for rc files, default is the package directory and the user's home directory.
 
-Note that no path entry for the user's home directory will be added by default if it could not be determined from environment variables.
+Note that no path entry for the user's home directory will be added if it could not be determined from environment variables, see [home()][home].
 
 ### prepend
 
@@ -157,3 +157,4 @@ Everything is [MIT](http://en.wikipedia.org/wiki/MIT_License). Read the [license
 
 [rc]: http://en.wikipedia.org/wiki/Run_Commands
 [ini]: https://github.com/isaacs/ini
+[home]: https://github.com/freeformsystems/cli-fs#home
