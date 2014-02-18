@@ -1,8 +1,6 @@
 var async = require('async');
-var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
 var path = require('path'), basename = path.basename;
-var util = require('util');
 var fsutil = require('cli-fs');
 var merge = require('cli-util').merge;
 
@@ -29,7 +27,6 @@ decoders[INI_TYPE] = function(contents) {
  *  @param options.path Array of filesystem directories to search.
  */
 var RunControl = function(options) {
-  EventEmitter.call(this);
   options = options || {};
   this.rc = {};
   this.type = options.type || JSON_TYPE;
@@ -39,8 +36,6 @@ var RunControl = function(options) {
   this.name = options.name || '.' + basename(process.argv[1]) + EXTENSION;
   this.path = options.path || this.getDefaultSearchPath();
 }
-
-util.inherits(RunControl, EventEmitter);
 
 /**
  *  Retrieve an array for the default search path.
@@ -66,19 +61,34 @@ RunControl.prototype.getDefaultSearchPath = function() {
  */
 RunControl.prototype.load = function(callback) {
   var files = this.path.slice(0), name = this.name;
-  var rc = this.rc, scope = this;
+  var rc = this.rc, type = this.type, scope = this;
+  function decode(data) {
+    var decoder = decoders[type];
+    return decoder(data);
+  }
   files.forEach(function(dir, index, arr) {
     arr[index] = path.join(dir, name);
   })
   async.mapSeries(files, function(file, callback) {
     fs.exists(file, function(exists) {
       if(!exists) return callback();
+      fs.readFile(file, function(err, data) {
+        if(err) return callback(err);
+        var res;
+        try {
+          res = decode(data);
+        }catch(e) {
+          return callback(e);
+        }
+        //TODO: merge into rc object
+        return callback(null, res);
+      })
     });
   }, function(err, results) {
     if(err) {
-      return scope.emit('error', err);
+      return callback(err);
     }
-    callback(rc);
+    callback(null, rc);
   });
 }
 
@@ -86,9 +96,12 @@ RunControl.prototype.load = function(callback) {
  *  Create a RunControl instance.
  *
  *  @param options Run control configuration options.
+ *  @param callback A callback function to pass to load.
  */
-function rc(options) {
-  return new RunControl(options);
+function rc(options, callback) {
+  var r = new RunControl(options);
+  if(typeof callback === 'function') r.load(callback);
+  return r;
 }
 
 module.exports = rc;
