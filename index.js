@@ -3,12 +3,22 @@ var EventEmitter = require('events').EventEmitter;
 var fs = require('fs');
 var path = require('path'), basename = path.basename;
 var util = require('util');
-var utils = require('cli-fs');
+var fsutil = require('cli-fs');
+var merge = require('cli-util').merge;
 
 var EXTENSION = 'rc';
 var JSON_TYPE = 'json';
 var INI_TYPE = 'ini';
 var types = [JSON_TYPE, INI_TYPE];
+
+var decoders = {};
+decoders[JSON_TYPE] = function(contents) {
+  return JSON.parse(contents);
+}
+decoders[INI_TYPE] = function(contents) {
+  var ini = require('ini');
+  return ini.parse(contents);
+}
 
 /**
  *  Create a RunControl instance.
@@ -23,7 +33,10 @@ var RunControl = function(options) {
   options = options || {};
   this.rc = {};
   this.type = options.type || JSON_TYPE;
-  this.name = options.name || basename(process.argv[1]) + EXTENSION;
+  if(!~types.indexOf(this.type)) {
+    throw new TypeError('Invalid rc type \'' + this.type + '\'');
+  }
+  this.name = options.name || '.' + basename(process.argv[1]) + EXTENSION;
   this.path = options.path || this.getDefaultSearchPath();
 }
 
@@ -38,10 +51,10 @@ util.inherits(RunControl, EventEmitter);
  */
 RunControl.prototype.getDefaultSearchPath = function() {
   var pth = [];
-  // this library should be in node_modules/cli-rc so this should
+  // this library will be in node_modules/cli-rc so this should
   // resolve to the package that depends upon this library
   var pkg = path.normalize(path.join(__dirname, '..', '..'));
-  var usr = utils.home();
+  var usr = fsutil.home();
   pth.push(pkg, usr);
   return pth;
 }
@@ -53,17 +66,18 @@ RunControl.prototype.getDefaultSearchPath = function() {
  */
 RunControl.prototype.load = function(callback) {
   var files = this.path.slice(0), name = this.name;
-  var rc = this.rc;
+  var rc = this.rc, scope = this;
   files.forEach(function(dir, index, arr) {
     arr[index] = path.join(dir, name);
   })
-  //console.dir(files);
   async.mapSeries(files, function(file, callback) {
     fs.exists(file, function(exists) {
       if(!exists) return callback();
     });
   }, function(err, results) {
-    //console.log('rc load complete');
+    if(err) {
+      return scope.emit('error', err);
+    }
     callback(rc);
   });
 }

@@ -25,7 +25,8 @@
   "dependencies": {
     "async": "~0.2.10",
     "ini": "~1.1.0",
-    "cli-fs": "~1.0.2"
+    "cli-fs": "~1.0.2",
+    "cli-util": "~1.1.6"
   },
   "devDependencies": {
     "mocha": "~1.17.0",
