@@ -43,7 +43,10 @@ For example, to search for rc files `/usr/local/etc/prg/prg.ini` and `/usr/local
 
 ```javascript
 var rc = require('cli-rc');
-var opts = {type: rc.INI, name: 'prg.ini', path: ['/usr/local/etc/prg', '/usr/local/lib/prg']};
+var opts = {
+  type: rc.INI, name: 'prg.ini',
+  path: ['/usr/local/etc/prg', '/usr/local/lib/prg']
+};
 rc(opts, function loaded(err, rc) {
   if(err) throw err;
   // do something with rc object
