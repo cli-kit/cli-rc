@@ -110,6 +110,10 @@ RunControl.prototype.load = function(callback) {
  *  @param callback A callback function to pass to load.
  */
 function rc(options, callback) {
+  if(typeof options === 'function') {
+    callback = options;
+    options = null;
+  }
   var r = new RunControl(options);
   if(typeof callback === 'function') r.load(callback);
   return r;

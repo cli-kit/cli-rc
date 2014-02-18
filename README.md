@@ -29,15 +29,15 @@ Assuming your program was named `prg` and your program expects JSON formatted rc
 
 ```javascript
 var rc = require('cli-rc');
-rc(null, function loaded(err, rc) {
+rc(function loaded(err, rc) {
   if(err) throw err;
   // do something with rc object
 });
 ```
 
-If neither file was located the `rc` parameter will be the empty object, otherwise it will contain the merged contents of all files with precedence in the order they were loaded.
+If neither file was located the `rc` parameter will be the empty object, otherwise it will contain the merged contents of all files with precedence in the order they were loaded, ie, properties declared in the last file will override properties loaded by previous files.
 
-You may use the `name` option to specify an alternative file name, set the `type` option to `rc.INI` to indicate that your rc files are ini formatted and configure the directory search paths with the `path` option.
+You may use the `name` option to specify an alternative file name, set the `type` option to `INI` to indicate that your rc files are ini formatted and configure the directory search paths with the `path` option.
 
 For example, to search for rc files `/usr/local/etc/prg/prg.ini` and `/usr/local/lib/prg/prg.ini` (in that order):
 
