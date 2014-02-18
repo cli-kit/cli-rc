@@ -35,7 +35,7 @@ rc(null, function loaded(err, rc) {
 });
 ```
 
-If neither file was located the `rc` parameter will be the empty object, otherwise it will contain the merged contents of all files with precendence in the order they were loaded.
+If neither file was located the `rc` parameter will be the empty object, otherwise it will contain the merged contents of all files with precedence in the order they were loaded.
 
 You may use the `name` option to specify an alternative file name, set the `type` option to `rc.INI` to indicate that your rc files are ini formatted and configure the directory search paths with the `path` option.
 
@@ -88,11 +88,11 @@ Returns the `RunControl` instance.
 
 #### INI
 
-String constant representing the `ini` format.
+String constant representing the `ini` type.
 
 #### JSON
 
-String constant representing the `json` format.
+String constant representing the `json` type.
 
 #### RunControl
 
