@@ -144,7 +144,7 @@ If the `lenient` option is specified and an error occurs `err` will be an array 
 
 Errors are decorated with a `file` property to indicate the file that caused the error condition.
 
-The `err` argument will be an `Error` if:
+Errors occur under the following circumstances:
 
 * There was an error parsing a file as JSON (`SyntaxError`).
 * An error occured while reading a file (`Error`), this could be permissions (`EACCESS`) or some other file system related error.
