@@ -1,0 +1,14 @@
+{
+  "scope": "global",
+  "database": {
+    "user": "dbuser",
+    "password": "dbpassword",
+    "database": "db"
+  },
+  "paths": {
+    "default": {
+      "datadir": "/var/lib/data",
+      "ints": [1,2,3]
+    }
+  }
+}

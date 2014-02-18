@@ -9,5 +9,6 @@ module.exports = {
   eaccess: 'eaccess.json',
   invalid: 'invalid.json',
   ini: 'rc.ini',
-  json: 'rc.json'
+  json: 'rc.json',
+  lenient: 'lenient.json'
 }

@@ -28,6 +28,8 @@ decoders[INI_TYPE] = function(contents) {
  *  @param options.type String indicating the file type (json or ini).
  *  @param options.name String name of the file to load.
  *  @param options.path Array of filesystem directories to search.
+ *  @param options.lenient Boolean indicating that load should
+ *  continue on error.
  */
 var RunControl = function(options) {
   options = options || {};
@@ -38,6 +40,7 @@ var RunControl = function(options) {
   }
   this.name = options.name || PREFIX + basename(process.argv[1]) + SUFFIX;
   this.path = options.path || this.getDefaultSearchPath();
+  this.lenient = options.lenient || false;
 }
 
 /**
@@ -70,24 +73,30 @@ RunControl.prototype.load = function(callback) {
     throw new TypeError('Load callback must be a function');
   }
   var files = this.path.slice(0), name = this.name;
-  var rc = this.rc, type = this.type;
+  var rc = this.rc, type = this.type, lenient = this.lenient, errors = null;
   files.forEach(function(dir, index, arr) {
     arr[index] = path.join(dir, name);
   })
+  function error(err, file, callback) {
+    err.file = file;
+    if(!lenient) {
+      return callback(err);
+    }else{
+      errors = errors || [];
+      errors.push(err);
+    }
+    callback();
+  }
   async.mapSeries(files, function(file, callback) {
     fs.exists(file, function(exists) {
       if(!exists) return callback();
       fs.readFile(file, function(err, data) {
-        if(err) {
-          err.file = file;
-          return callback(err);
-        }
+        if(err) return error(err, file, callback)
         var decoder = decoders[type], res;
         try {
           res = decoder('' + data);
         }catch(e) {
-          e.file = file;
-          return callback(e);
+          return error(e, file, callback)
         }
         return callback(null, res);
       })
@@ -99,7 +108,7 @@ RunControl.prototype.load = function(callback) {
     for(var i = 0;i < results.length;i++) {
       if(results[i]) merge(results[i], rc);
     }
-    callback(null, rc);
+    callback(errors, rc);
   });
 }
 
