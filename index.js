@@ -4,7 +4,8 @@ var path = require('path'), basename = path.basename;
 var fsutil = require('cli-fs');
 var merge = require('cli-util').merge;
 
-var EXTENSION = 'rc';
+var PREFIX = '.';
+var SUFFIX = 'rc';
 var JSON_TYPE = 'json';
 var INI_TYPE = 'ini';
 var types = [JSON_TYPE, INI_TYPE];
@@ -33,7 +34,7 @@ var RunControl = function(options) {
   if(!~types.indexOf(this.type)) {
     throw new TypeError('Invalid rc type \'' + this.type + '\'');
   }
-  this.name = options.name || '.' + basename(process.argv[1]) + EXTENSION;
+  this.name = options.name || PREFIX + basename(process.argv[1]) + SUFFIX;
   this.path = options.path || this.getDefaultSearchPath();
 }
 
