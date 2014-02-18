@@ -80,13 +80,15 @@ RunControl.prototype.load = function(callback) {
         }catch(e) {
           return callback(e);
         }
-        //TODO: merge into rc object
         return callback(null, res);
       })
     });
   }, function(err, results) {
     if(err) {
       return callback(err);
+    }
+    for(var i = 0;i < results.length;i++) {
+      merge(results[i], rc);
     }
     callback(null, rc);
   });
