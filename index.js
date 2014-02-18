@@ -93,7 +93,7 @@ RunControl.prototype.load = function(callback) {
       return callback(err);
     }
     for(var i = 0;i < results.length;i++) {
-      merge(results[i], rc);
+      if(results[i]) merge(results[i], rc);
     }
     callback(null, rc);
   });
