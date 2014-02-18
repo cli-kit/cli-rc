@@ -76,7 +76,7 @@ RunControl.prototype.load = function(callback) {
         if(err) return callback(err);
         var res;
         try {
-          res = decode(data);
+          res = decode('' + data);
         }catch(e) {
           return callback(e);
         }
