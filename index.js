@@ -8,6 +8,7 @@ var PREFIX = '.';
 var SUFFIX = 'rc';
 var JSON_TYPE = 'json';
 var INI_TYPE = 'ini';
+
 var types = [JSON_TYPE, INI_TYPE];
 
 var decoders = {};
@@ -15,6 +16,7 @@ decoders[JSON_TYPE] = function(contents) {
   return JSON.parse(contents);
 }
 decoders[INI_TYPE] = function(contents) {
+  // lazily load ini dependency
   var ini = require('ini');
   return ini.parse(contents);
 }
@@ -60,17 +62,15 @@ RunControl.prototype.getDefaultSearchPath = function() {
  *  Load the configuration files.
  *
  *  @api public
+ *
+ *  @param callback A callback function.
  */
 RunControl.prototype.load = function(callback) {
   if(typeof callback !== 'function') {
     throw new TypeError('Load callback must be a function');
   }
   var files = this.path.slice(0), name = this.name;
-  var rc = this.rc, type = this.type, scope = this;
-  function decode(data) {
-    var decoder = decoders[type];
-    return decoder(data);
-  }
+  var rc = this.rc, type = this.type;
   files.forEach(function(dir, index, arr) {
     arr[index] = path.join(dir, name);
   })
@@ -79,9 +79,9 @@ RunControl.prototype.load = function(callback) {
       if(!exists) return callback();
       fs.readFile(file, function(err, data) {
         if(err) return callback(err);
-        var res;
+        var decoder = decoders[type], res;
         try {
-          res = decode('' + data);
+          res = decoder('' + data);
         }catch(e) {
           return callback(e);
         }
