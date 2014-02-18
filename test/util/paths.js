@@ -1,9 +1,9 @@
 var path = require('path');
 
 var files = path.normalize(path.join(__dirname, '..', 'files'));
-var invalid = path.join(files, 'invalid.json');
+var override = path.join(files, 'override');
 
 module.exports = {
   files: files,
-  invalid: invalid
+  override: override
 }

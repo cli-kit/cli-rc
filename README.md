@@ -18,7 +18,7 @@ npm test
 
 ## Features
 
-* Support for ini and json rc files
+* Support for `ini` and `json` rc files
 * Sensible default search paths
 * Logical default naming convention
 * 100% code coverage
@@ -37,7 +37,7 @@ rc(null, function loaded(err, rc) {
 
 If neither file was located the `rc` parameter will be the empty object, otherwise it will contain the merged contents of all files with precendence in the order they were loaded.
 
-You may use the `name` option to specify an alternative name (default is `basename(process.argv[1])`), set the `type` option to `rc.INI` to indicate that your rc files are ini formatted and configure the directory search paths with the `path` option.
+You may use the `name` option to specify an alternative file name, set the `type` option to `rc.INI` to indicate that your rc files are ini formatted and configure the directory search paths with the `path` option.
 
 For example, to search for rc files `/usr/local/etc/prg/prg.ini` and `/usr/local/lib/prg/prg.ini` (in that order):
 
@@ -90,7 +90,7 @@ Creates a `RunControl` instance.
 * `options`: The configuration options.
 * `callback`: A callback function.
 
-If `callback` is specified (and is a `function`) then it is passed to `load()`.
+If `callback` is specified and is a `function` then it is passed to `load()`.
 
 Returns the `RunControl` instance.
 
