@@ -40,6 +40,11 @@ var RunControl = function(options) {
   }
   this.name = options.name || PREFIX + basename(process.argv[1]) + SUFFIX;
   this.path = options.path || this.getDefaultSearchPath();
+  if(options.path && options.append) {
+    this.path = options.path.concat(this.getDefaultSearchPath());
+  }else if(options.path && options.prepend) {
+    this.path = this.getDefaultSearchPath().concat(options.path);
+  }
   this.lenient = options.lenient || false;
 }
 

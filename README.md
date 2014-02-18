@@ -35,7 +35,7 @@ rc(function loaded(err, rc) {
 });
 ```
 
-If neither file was located the `rc` parameter will be the empty object, otherwise it will contain the merged contents of all files with precedence in the order they were loaded, ie, properties declared in the last file will override properties loaded by previous files.
+If neither file was located the `rc` parameter will be the empty object, otherwise it will contain the merged contents of all files with precedence in reverse order, ie, properties declared in the last file will override properties loaded by previous files.
 
 You may use the `name` option to specify an alternative file name, set the `type` option to `INI` to indicate that your rc files are ini formatted and configure the directory search paths with the `path` option.
 
@@ -55,6 +55,10 @@ rc(opts, function loaded(err, rc) {
 
 ## Options
 
+### append
+
+A boolean that appends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option.
+
 ### lenient
 
 A boolean that gathers errors into an array and continues processing subsequent rc files, default is `false`.
@@ -70,6 +74,10 @@ The name of the rc file to load, default is:
 ### path
 
 Array of directories to search for rc files, default is the package directory and the user's home directory.
+
+### prepend
+
+A boolean that prepends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option.
 
 ### type
 
