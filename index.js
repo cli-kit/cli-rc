@@ -78,11 +78,15 @@ RunControl.prototype.load = function(callback) {
     fs.exists(file, function(exists) {
       if(!exists) return callback();
       fs.readFile(file, function(err, data) {
-        if(err) return callback(err);
+        if(err) {
+          err.file = file;
+          return callback(err);
+        }
         var decoder = decoders[type], res;
         try {
           res = decoder('' + data);
         }catch(e) {
+          e.file = file;
           return callback(e);
         }
         return callback(null, res);
