@@ -109,14 +109,32 @@ Creates a `RunControl` instance.
 
 * `options`: The configuration options.
 
+Throws `TypeError` if `options.type` is invalid.
+
 #### load(callback)
 
 Loads rc files.
 
 * `callback`: A function to invoke when the load operation is complete.
 
+Throws `TypeError` if `callback` is not a function.
+
+The signature for `callback` is:
+
+```javascript
+function loaded(err, rc)
+```
+
+The `err` argument will an `Error` if:
+
+* There was an error parsing a file as JSON (`SyntaxError`).
+* An error occured while reading a file (`Error`), this could be permissions (`EACCESS`) or some other file system related error.
+
+Note that currently the [ini][ini] module does not throw any errors on malformed file contents, however if that changes they will be passed on to the `callback` function.
+
 ## License
 
 Everything is [MIT](http://en.wikipedia.org/wiki/MIT_License). Read the [license](/LICENSE) if you feel inclined.
 
 [rc]: http://en.wikipedia.org/wiki/Run_Commands
+[ini]: https://github.com/isaacs/ini
