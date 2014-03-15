@@ -37,6 +37,7 @@ decoders[INI_TYPE] = function(contents) {
  */
 var RunControl = function(options) {
   options = options || {};
+  this.options = options;
   this.rc = {};
   this.type = options.type || JSON_TYPE;
   if(!~types.indexOf(this.type)) {
@@ -63,7 +64,8 @@ RunControl.prototype.getDefaultSearchPath = function() {
   var pth = [];
   // this library will be in node_modules/cli-rc so this should
   // resolve to the dependent package directory
-  var pkg = path.normalize(path.join(__dirname, '..', '..'));
+  var pkg = this.options.base
+    || path.normalize(path.join(__dirname, '..', '..'));
   var usr = fsutil.home();
   pth.push(pkg);
   if(usr) pth.push(usr);
@@ -82,6 +84,7 @@ RunControl.prototype.load = function(callback) {
     throw new TypeError('Load callback must be a function');
   }
   var files = this.path.slice(0), name = this.name;
+  //console.dir(files);
   var rc = this.rc, type = this.type, lenient = this.lenient, errors = null;
   files.forEach(function(dir, index, arr) {
     arr[index] = path.join(dir, name);

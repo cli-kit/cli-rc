@@ -59,6 +59,10 @@ rc(opts, function loaded(err, rc) {
 
 A boolean that appends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option.
 
+### base
+
+A path to the directory for the package.
+
 ### lenient
 
 A boolean that gathers errors into an array and continues processing subsequent rc files, default is `false`.
