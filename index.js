@@ -2,7 +2,9 @@ var async = require('async');
 var fs = require('fs');
 var path = require('path'), basename = path.basename;
 var fsutil = require('cli-fs');
-var merge = require('cli-util').merge;
+var utils = require('cli-util')
+  , merge = utils.merge
+  , uniq = utils.uniq;
 
 var PREFIX = '.';
 var SUFFIX = 'rc';
@@ -56,6 +58,7 @@ var RunControl = function(options) {
   if(Array.isArray(options.append)) {
     this.path = this.path.concat(options.append);
   }
+  this.path = uniq(this.path);
   if(typeof options.resolve === 'function') {
     this.path = this.path.map(function(value) {
       return options.resolve(value);
