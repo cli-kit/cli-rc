@@ -32,6 +32,32 @@ describe('cli-rc:', function() {
     expect(loader.path[loader.path.length - 1]).to.eql(dir);
     done();
   });
+  it('should append array of paths to defaults', function(done) {
+    var loader = rc({append: ['/usr']});
+    expect(loader.path).to.be.an('array');
+    expect(loader.path.length).to.eql(3);
+    done();
+  });
+  it('should append array of paths to path list', function(done) {
+    var dir = '/usr/local/lib/prg';
+    var loader = rc({path: [dir], append: ['/usr']});
+    expect(loader.path).to.be.an('array');
+    expect(loader.path.length).to.eql(2);
+    done();
+  });
+  it('should prepend array of paths to defaults', function(done) {
+    var loader = rc({prepend: ['/usr']});
+    expect(loader.path).to.be.an('array');
+    expect(loader.path.length).to.eql(3);
+    done();
+  });
+  it('should prepend array of paths to path list', function(done) {
+    var dir = '/usr/local/lib/prg';
+    var loader = rc({path: [dir], prepend: ['/usr']});
+    expect(loader.path).to.be.an('array');
+    expect(loader.path.length).to.eql(2);
+    done();
+  });
   it('should set default options (without home)', function(done) {
     delete process.env.HOME;
     delete process.env.HOMEPATH;
