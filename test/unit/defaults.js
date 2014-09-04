@@ -5,7 +5,7 @@ var rc = require('../..');
 var pkg = path.normalize(
   path.join(__dirname, '..', '..', '..', '..'));
 
-describe('cli-util:', function() {
+describe('cli-rc:', function() {
   it('should set default options', function(done) {
     var loader = rc();
     expect(loader.type).to.eql(rc.JSON);

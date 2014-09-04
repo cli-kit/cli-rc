@@ -3,7 +3,7 @@ var expect = require('chai').expect;
 var rc = require('../..');
 var paths = require('../util/paths');
 
-describe('cli-util:', function() {
+describe('cli-rc:', function() {
   it('should throw error on unsupported type', function(done) {
     var opts = {type: 'unknown'};
     function fn() {

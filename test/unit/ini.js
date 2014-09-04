@@ -9,7 +9,7 @@ var paths = require('../util/paths');
 var expected = ini.parse(
   '' + fs.readFileSync(path.join(paths.files, 'rc.ini')));
 
-describe('cli-util:', function() {
+describe('cli-rc:', function() {
   it('should load valid rc file (ini)', function(done) {
     var opts = {name: paths.ini, path: [paths.files], type: rc.INI};
     rc(opts, function loaded(err, rc) {

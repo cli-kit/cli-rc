@@ -5,7 +5,7 @@ var paths = require('../util/paths');
 
 var expected = require('../files/override/lenient.json');
 
-describe('cli-util:', function() {
+describe('cli-rc:', function() {
   it('should gather errors as array (lenient)', function(done) {
     var opts = {
       name: paths.lenient, path: [paths.files, paths.override], lenient: true};
