@@ -59,12 +59,12 @@ var RunControl = function(options) {
   if(Array.isArray(options.append)) {
     this.path = this.path.concat(options.append);
   }
-  this.path = uniq(this.path);
   if(typeof options.resolve === 'function') {
     this.path = this.path.map(function(value) {
       return options.resolve(value);
     })
   }
+  this.path = uniq(this.path);
   this.lenient = options.lenient || false;
 }
 
