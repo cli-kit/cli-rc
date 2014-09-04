@@ -42,6 +42,7 @@ var RunControl = function(options) {
   this.options = options;
   this.rc = {};
   this.type = options.type || JSON_TYPE;
+  this.options.home = options.home || fsutil.home;
   if(!~types.indexOf(this.type)) {
     throw new TypeError('Invalid rc type \'' + this.type + '\'');
   }
@@ -80,7 +81,7 @@ RunControl.prototype.getDefaultSearchPath = function() {
   // resolve to the dependent package directory
   var pkg = this.options.base
     || path.normalize(path.join(__dirname, '..', '..'));
-  var usr = fsutil.home();
+  var usr = this.options.home();
   pth.push(pkg);
   if(usr) pth.push(usr);
   return pth;

@@ -63,6 +63,10 @@ A boolean that appends the default search paths to directories specified in `pat
 
 A path to the directory for the package.
 
+### home
+
+A function that may be used to determine the home directory location, default implementation inspects `process.env.HOME`.
+
 ### lenient
 
 A boolean that gathers errors into an array and continues processing subsequent rc files, default is `false`.
