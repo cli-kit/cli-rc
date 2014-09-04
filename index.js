@@ -45,10 +45,16 @@ var RunControl = function(options) {
   }
   this.name = options.name || PREFIX + basename(process.argv[1]) + SUFFIX;
   this.path = options.path || this.getDefaultSearchPath();
-  if(options.path && options.append) {
+  if(options.path && options.append === true) {
     this.path = options.path.concat(this.getDefaultSearchPath());
-  }else if(options.path && options.prepend) {
+  }else if(options.path && options.prepend === true) {
     this.path = this.getDefaultSearchPath().concat(options.path);
+  }
+  if(Array.isArray(options.prepend)) {
+    this.path = options.prepend.concat(this.path);
+  }
+  if(Array.isArray(options.append)) {
+    this.path = this.path.concat(options.append);
   }
   this.lenient = options.lenient || false;
 }

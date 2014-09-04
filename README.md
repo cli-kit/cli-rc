@@ -57,7 +57,7 @@ rc(opts, function loaded(err, rc) {
 
 ### append
 
-A boolean that appends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option.
+A boolean that appends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option. May also be an array of paths to append to the default search path.
 
 ### base
 
@@ -83,7 +83,7 @@ Note that no path entry for the user's home directory will be added if it could 
 
 ### prepend
 
-A boolean that prepends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option.
+A boolean that prepends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option. May also be an array of paths to prepend to the default search path.
 
 ### type
 
