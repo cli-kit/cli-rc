@@ -41,6 +41,8 @@ var RunControl = function(options) {
   options = options || {};
   this.options = options;
   this.rc = {};
+  this.store = {};
+  this.files = [];
   this.type = options.type || JSON_TYPE;
   this.options.home = options.home || fsutil.home;
   if(!~types.indexOf(this.type)) {
@@ -125,6 +127,7 @@ RunControl.prototype.load = function(callback) {
         }catch(e) {
           return error(e, file, callback)
         }
+        self.store[file] = res;
         return callback(null, res);
       })
     });
@@ -135,6 +138,7 @@ RunControl.prototype.load = function(callback) {
     for(var i = 0;i < results.length;i++) {
       if(results[i]) merge(results[i], rc);
     }
+    self.files = Object.keys(self.store);
     callback(errors, rc, self);
   });
 }
