@@ -58,6 +58,12 @@ describe('cli-rc:', function() {
     expect(loader.path.length).to.eql(2);
     done();
   });
+  it('should use resolve function', function(done) {
+    var loader = rc({resolve: function(path){return path;}});
+    expect(loader.path).to.be.an('array');
+    expect(loader.path.length).to.eql(2);
+    done();
+  });
   it('should set default options (without home)', function(done) {
     delete process.env.HOME;
     delete process.env.HOMEPATH;
