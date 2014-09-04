@@ -85,6 +85,10 @@ Note that no path entry for the user's home directory will be added if it could 
 
 A boolean that prepends the default search paths to directories specified in `path`, only applicable if `path` has been specified as an option. May also be an array of paths to prepend to the default search path.
 
+### resolve
+
+A function that is passed each path and may be used to resolve relative paths to absolute paths.
+
 ### type
 
 The expected format of rc files, either `ini` or `json`, default is `json`.

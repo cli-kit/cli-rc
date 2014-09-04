@@ -56,6 +56,11 @@ var RunControl = function(options) {
   if(Array.isArray(options.append)) {
     this.path = this.path.concat(options.append);
   }
+  if(typeof options.resolve === 'function') {
+    this.path = this.path.map(function(value) {
+      return options.resolve(value);
+    })
+  }
   this.lenient = options.lenient || false;
 }
 
