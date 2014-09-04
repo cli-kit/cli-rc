@@ -83,7 +83,7 @@ RunControl.prototype.load = function(callback) {
   if(typeof callback !== 'function') {
     throw new TypeError('Load callback must be a function');
   }
-  var files = this.path.slice(0), name = this.name;
+  var files = this.path.slice(0), name = this.name, self = this;
   //console.dir(files);
   var rc = this.rc, type = this.type, lenient = this.lenient, errors = null;
   files.forEach(function(dir, index, arr) {
@@ -120,7 +120,7 @@ RunControl.prototype.load = function(callback) {
     for(var i = 0;i < results.length;i++) {
       if(results[i]) merge(results[i], rc);
     }
-    callback(errors, rc);
+    callback(errors, rc, self);
   });
 }
 
