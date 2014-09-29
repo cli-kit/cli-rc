@@ -27,7 +27,7 @@
   "dependencies": {
     "async": "~0.2.10",
     "cli-fs": "^1.0.3",
-    "cli-util": "^1.1.19",
+    "cli-util": "^1.1.24",
     "ini": "^1.3.0"
   },
   "devDependencies": {
